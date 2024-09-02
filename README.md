@@ -7,8 +7,15 @@ Welcome to the **Comprehensive Data Processing and Machine Learning Pipeline for
 
 ## 📂 Repository Contents
 
-- **`comprehensive_data_processing_and_machine_learning_pipeline_for_financial_analysis.py`**: The main Python script for the complete pipeline.
-- **`Comprehensive_Data_Processing_and_Machine_Learning_Pipeline_for_Financial_Analysis.ipynb`**: Jupyter Notebook version optimized for Google Colab.
+**py scripts**:
+- o	**`1_data_preprocessing_and_visualization.py`**: Handles data preprocessing and visualization.
+- o	**`2_model_fine_tuning.py`**: Script for fine-tuning machine learning models.
+- o	**`3_rolling_window_analysis.py`**: Performs rolling window analysis on the data.
+- o	**`4_portfolio_construction.py`**: Handles the construction and evaluation of financial portfolios.
+- o	**`complete_pipeline_for_financial_analysis.py`**: The entire pipeline is consolidated into a single script.
+
+**ipynb notebooks**:
+- o	**`Comprehensive_Data_Processing_and_Machine_Learning_Pipeline_for_Financial_Analysis.ipynb`**: A Jupyter Notebook containing the entire data processing and machine learning pipeline. This notebook is optimized for use on Google Colab.
 
 ## ✨ Features
 
