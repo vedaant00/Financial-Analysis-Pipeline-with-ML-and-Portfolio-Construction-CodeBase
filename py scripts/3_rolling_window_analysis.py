@@ -35,6 +35,7 @@ from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from datasets import load_metric
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer, TrainerCallback
@@ -491,3 +492,66 @@ plot_best_model_by_year(year_df)
 
 ticker_df, overall_best_model_tickerwise = find_best_model_tickerwise(rolling_window_results_dict)
 plot_best_model_by_ticker(ticker_df)
+
+## Calculating the MSE and RMSE for Rolling Window (Embeddings + Logistic Regression) Predictions
+data = pd.read_csv('/content/predicted_rolling_window_test_directions.csv')
+
+# Initialize dictionaries to store MAE and MSE
+rmse_results = {}
+mse_results = {}
+
+# Get unique models from the data
+models = data['Model'].unique()
+
+# Calculate MSE and RMSE for each model
+for model in models:
+    model_data = data[data['Model'] == model]
+    true_values = model_data['True_Direction']
+    predicted_values = model_data['Predicted_Direction']
+
+    mse = mean_squared_error(true_values, predicted_values)
+
+    mse_results[model] = mse
+    rmse = np.sqrt(mse)
+    rmse_results[model] = rmse
+
+# Display the results
+print("\nMSE for each model:")
+for model, mse in mse_results.items():
+    print(f"{model}: {mse}")
+
+print("\nRMSE for each model:")
+for model, rmse in rmse_results.items():
+    print(f"{model}: {rmse}")
+
+ ## Calculating the MSE and RMSE for Fine-Tuned Predictions   
+data = pd.read_csv('/content/merged_fine_tuned_results_df.csv')
+
+# Initialize dictionaries to store MAE and MSE
+mae_results = {}
+mse_results = {}
+rmse_results = {}
+
+# Get unique models from the data
+models = data['Model'].unique()
+
+# Calculate MAE and MSE and RMSE for each model
+for model in models:
+    model_data = data[data['Model'] == model]
+    true_values = model_data['Direction']
+    predicted_values = model_data['Predicted_Direction']
+
+    mae = mean_absolute_error(true_values, predicted_values)
+    mse = mean_squared_error(true_values, predicted_values)
+
+    mae_results[model] = mae
+    mse_results[model] = mse
+    rmse_results[model] = np.sqrt(mse)
+
+print("\nMSE for each model:")
+for model, mse in mse_results.items():
+    print(f"{model}: {mse}")
+
+print("\nRMSE for each model:")
+for model, rmse in rmse_results.items():
+    print(f"{model}: {rmse}")
